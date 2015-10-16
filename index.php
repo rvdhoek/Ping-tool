@@ -1,4 +1,4 @@
-<?php include_once("/var/www/analyticstracking.php"); ?>
+
 <html>
 <HEAD>
 <meta name="robots" content="noindex">
