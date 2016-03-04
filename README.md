@@ -1,3 +1,3 @@
 # Ping-tool
-Online (HTML) ping tool.
+Online ping tool.
 .
