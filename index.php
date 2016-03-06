@@ -1,46 +1,4 @@
-<?php 
-include_once("/var/www/analyticstracking.php");
-session_start();
 
-$publickey='6Le4kg8TAAAAAN86m9WiQLuWJs8HDxCa4Uly8kjV';
-$privatekey='6Le4kg8TAAAAADtAm-_WBa6nLRaLasESgU2Umzwg';
-if (!empty($publickey) && !empty($privatekey)){
-if ($_SESSION['ping_valid'] != 1){
-        print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
-        print "<html>\n";
-        print "<head>\n";
-        print "<link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\"/>";
-        print "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=false\" />\n";
-        print "<link type=\"text/css\" rel=\"stylesheet\" href=\"" . BASE_URI . "/" . CSS_FILE ."\" />\n";
-        print "<title>Log In</title>\n";
-        print "</head>\n";
-        print '<body><b><form action="" method="post">';
-	print '<H2>Please enter the code</H2>';
-        require_once('../recaptcha-php-1.11/recaptchalib.php');
-
-                # the response from reCAPTCHA
-                $resp = null;
-                # the error code from reCAPTCHA, if any
-                $error = null;
-
-                # was there a reCAPTCHA response?
-        if ($_POST["recaptcha_response_field"]) {
-                $resp = recaptcha_check_answer ($privatekey,$_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
-                if ($resp->is_valid) {
-                        echo "You got it!";
-                        $_SESSION['ping_valid'] = 1;
-                        // fix problem with renew page
-                        header('Location: '.$_SERVER['PHP_SELF']);
-                   } else {
-                        # set the error code so that we can display it
-                        $error = $resp->error;
-                        }
-                }
-echo recaptcha_get_html($publickey, $error);
-echo '</br><input type="submit" value="submit" /></form></body></html>';
-exit;
-}}
-?>
 
 <HEAD>
 <meta name="robots" content="noindex">
